@@ -4,16 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mardam Sign Ads | Tarpaulin Quotation</title>
-<link rel="stylesheet" href="style.css">
-<script src="script.js" defer></script>
 </head>
 <body>
-<div class="page">
+<div class="page" id="quotationWorkspace">
   <div class="toolbar">
     <h1>Tarpaulin Quotation Generator</h1>
     <div class="actions">
       <button class="light" type="button" onclick="addRow()">+ Add item</button>
-      <button class="secondary" type="button" onclick="resetForm()">Clear form</button>
+      <select id="quoteStatus" class="status-select" aria-label="Quotation status"><option>Pending</option><option>Approved</option><option>Rejected</option><option>Completed</option></select>
+      <button class="secondary" type="button" onclick="saveQuotation()">Save quotation</button>
+      <button class="light" type="button" onclick="resetForm()">Clear form</button>
       <button class="primary" type="button" onclick="window.print()">Print quotation</button>
     </div>
   </div>
@@ -82,14 +82,15 @@
       </div>
       <div class="totals">
         <div class="total-row"><span>Tarpaulin Subtotal</span><strong id="subtotal">₱0.00</strong></div>
-        <div class="total-row" style="align-items:center">
-          <label for="layoutFee" style="margin:0;color:inherit;font-size:14px">Layout Fee (₱)</label>
-          <input id="layoutFee" type="number" min="0" step="0.01" value="0" oninput="recalculate()" style="max-width:145px;text-align:right">
-        </div>
+        <div class="total-row pricing-input"><label for="layoutFee">Layout Fee (₱)</label><input id="layoutFee" type="number" min="0" step="0.01" value="0" oninput="recalculate()"></div>
+        <div class="total-row pricing-input"><label for="installationFee">Installation Fee (₱)</label><input id="installationFee" type="number" min="0" step="0.01" value="0" oninput="recalculate()"></div>
+        <div class="total-row pricing-input"><label for="deliveryFee">Delivery Fee (₱)</label><input id="deliveryFee" type="number" min="0" step="0.01" value="0" oninput="recalculate()"></div>
+        <div class="total-row pricing-input"><label for="discount">Discount (%)</label><input id="discount" type="number" min="0" max="100" step="0.01" value="0" oninput="recalculate()"></div>
+        <div class="total-row"><span>Discount Amount</span><strong id="discountAmount">₱0.00</strong></div>
         <div class="total-row"><span>Amount Before VAT</span><strong id="beforeVat">₱0.00</strong></div>
         <div class="total-row"><span>VAT (12%)</span><strong id="vat">₱0.00</strong></div>
         <div class="total-row grand"><span>Total Amount</span><span id="grandTotal">₱0.00</span></div>
-        <div class="vat-note">VAT (12%) is calculated on the tarpaulin subtotal plus the layout fee.</div>
+        <div class="vat-note">VAT (12%) is calculated on the amount after discount, including applicable fees.</div>
       </div>
     </section>
 
